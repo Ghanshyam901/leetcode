@@ -23,6 +23,28 @@ public static int queenCombination(int tnb, int tnq, int bno, int qno, String an
 
 }
 
+public static int queenCombination2D(Boolean [][] board, int tnq, int bno, String ans){
+
+    if(tnq == 0){
+        System.out.println(ans);
+        return 1;
+    }
+
+    int count =0;
+    int n = board.length;
+    int m = board[0].length;
+
+    for(int i = bno ; i<n*m ; i++){
+
+        int r = i/m;
+        int c =i %m;
+        count += queenCombination2D(board, tnq-1, i+1, ans+ "("+ (r) + "," + (c)+" )");
+    }
+
+    return count;
+
+}
+
 //=====================================================================//
 
 public static void queenCombination_(){
