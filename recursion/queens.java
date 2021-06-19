@@ -16,7 +16,7 @@ public static int queenCombination(int tnb, int tnq, int bno, int qno, String an
     int count =0;
 
     for(int i = bno ; i<tnb ; i++){
-        count += queenCombination(tnb, tnq, i+1, qno+1, ans+ "b"+ String.valueOf(i) + "q" + String.valueOf(qno)+" ");
+        count += queenCombination(tnb, tnq, i+1, qno+1, ans+ "b"+ (i) + "q" + (qno)+" ");
     }
 
     return count;
