@@ -115,7 +115,7 @@ public class l006_backtracking {
         solveSudoku(board, emptyIndex, 0);
     }
 
-    // 36
+    // leetcode 36
     public boolean isValidSudoku(char[][] board) {
         int[] row = new int[9];
         int[] col = new int[9];
