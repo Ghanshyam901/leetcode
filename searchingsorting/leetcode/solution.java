@@ -37,6 +37,30 @@ public class solution {
     }
 
 
+    ////////////////  1365
+
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+        
+        HashMap<Integer,Integer> map = new HashMap<>();
+        
+        int [] num = nums.clone();
+        
+        Arrays.sort(num);
+        
+        for(int i = 0; i< nums.length; i++){
+            map .putIfAbsent(num[i],i);
+            
+        }
+        for(int i =0; i<nums.length; i++){
+            num[i] = map.get(nums[i]);
+        }
+        return num;
+        
+        
+        
+    }
+
+
 
 
   public static void main(String[] args) {
