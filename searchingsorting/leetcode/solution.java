@@ -116,6 +116,27 @@ public class solution {
     }
 
 
+    //1437
+
+    public boolean kLengthApart(int[] nums, int k) {
+        int j =-1;
+        
+        for(int i =0; i<nums.length; i++){
+            if(nums[i] == 1 && j == -1){
+                j = i;
+                
+                 
+            }else if(nums[i] == 1){
+                if(i -j-1 < k ){
+                    return false;
+                } 
+                
+                j = i;
+            }
+        }
+        return true;
+    }
+
 
 
   public static void main(String[] args) {
