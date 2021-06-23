@@ -60,6 +60,48 @@ public class solution {
         
     }
 
+    //// 1464  
+
+    public int maxProduct(int[] nums) {
+        int length = nums.length;
+        
+        if(length == 1){
+            return nums[0];
+        }
+               
+
+        
+        int max1 = Integer.MIN_VALUE;
+        int max2 = Integer.MIN_VALUE;
+        
+         if(length == 2){
+            return (nums[0]-1) *(nums[1]-1);
+        }
+        
+        if(length == 2){
+            return (nums[0]-1) *(nums[1]-1);
+        }
+        
+        for(int i =0; i<length; i++){
+            
+            
+            if(nums[i] >= max2){
+                
+                if(nums[i] >= max1){
+                max2 = max1;
+                max1 = nums[i];
+                
+                
+            }else{
+                max2 = nums[i];
+            }
+        }
+        
+        }
+        return (max1 -1) * (max2-1);
+   
+    }
+
 
 
 
