@@ -147,7 +147,58 @@ public class solution {
         }
     }
 
+//////// decode ways 2
 
+static int mod =1000000007;
+public int numDecodings(String s) {
+    long[] dp = new long[s.length() + 1];
+    Arrays.fill(dp, -1);
+    long ans = numDecodings_opti(s);
+    return (int) ans; 
+}
+public long numDecodings_opti(String s) {
+    long a = 1, b = 0;
+    for (int idx = s.length() - 1; idx >= 0; idx--) {
+
+        long count = 0;
+        char ch1 = s.charAt(idx);
+        if (ch1 == '0') {
+            count = 0;
+        } else if (ch1 == '*') {
+            count = (count + 9 * a) % mod;
+            if (idx < s.length() - 1) {
+                char ch2 = s.charAt(idx + 1);
+                if (ch2 == '*')
+                    count = (count + 15 * b) % mod;
+                else if (ch2 >= '0' && ch2 <= '6')
+                    count = (count + 2 * b) % mod;
+                else if (ch2 > '6')
+                    count = (count + b) % mod;
+
+            }
+        } else {
+            count = (count + a) % mod;
+            if (idx < s.length() - 1) {
+                if (s.charAt(idx + 1) != '*') {
+                    char ch2 = s.charAt(idx + 1);
+                    int num = (ch1 - '0') * 10 + (ch2 - '0');
+                    if (num <= 26)
+                        count = (count + b) % mod;
+                } else {
+                    if (s.charAt(idx) == '1')
+                        count = (count + 9 * b) % mod;
+                    else if (s.charAt(idx) == '2')
+                        count = (count + 6 * b) % mod;
+                }
+            }
+        }
+
+        b = a;
+        a = count;
+    }
+
+    return (int) a;
+}s
 
 
   public static void main(String[] args) {
