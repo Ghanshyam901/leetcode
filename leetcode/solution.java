@@ -116,6 +116,38 @@ public class solution {
     }
 
 
+    /////862. Shortest Subarray with Sum at Least K
+
+    public int shortestSubarray(int[] nums, int k) {
+        int n = nums.length;
+        long [] newArr = new long[n+1];
+        for(int i=0; i<n; i++){
+            newArr[i+1] = newArr[i] + (long)nums[i];
+        }
+        
+        int ans = n+1;
+        
+        Deque<Integer> que = new LinkedList<>();
+        
+        for(int y=0; y<newArr.length; y++){
+            while(!que.isEmpty() && newArr[y] <= newArr[que.getLast()]){
+                que.removeLast();
+            }
+            while(!que.isEmpty() && newArr[y] >= newArr[que.getFirst()] + k){
+                ans = Math.min(ans,y-que.removeFirst());
+            }
+            
+            que.addLast(y);
+        }
+        
+        if(ans < n+1){
+            return ans;
+        }else{
+            return -1;
+        }
+    }
+
+
 
 
   public static void main(String[] args) {
