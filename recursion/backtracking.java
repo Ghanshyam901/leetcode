@@ -189,4 +189,154 @@ public class l006_backtracking {
         return count;
     }
 
+    // . cross word pep
+    static char[][] box = { { '+', '-', '+', '+', '+', '+', '+', '+', '+', '+' },
+            { '+', '-', '+', '+', '+', '+', '+', '+', '+', '+' }, { '+', '-', '-', '-', '-', '-', '-', '-', '+', '+' },
+            { '+', '-', '+', '+', '+', '+', '+', '+', '+', '+' }, { '+', '-', '+', '+', '+', '+', '+', '+', '+', '+' },
+            { '+', '-', '-', '-', '-', '-', '-', '+', '+', '+' }, { '+', '-', '+', '+', '+', '-', '+', '+', '+', '+' },
+            { '+', '+', '+', '+', '+', '-', '+', '+', '+', '+' }, { '+', '+', '+', '+', '+', '-', '+', '+', '+', '+' },
+            { '+', '+', '+', '+', '+', '+', '+', '+', '+', '+' } };
+
+    public static boolean isPossibleToPlace_H(char[][] board, String word, int r, int c) {
+        int l = word.length(), m = board[0].length;
+        if (c + l > m)
+            return false;
+        if (c == 0 && c + l < m && board[r][c + l] != '+')
+            return false;
+        if (c != 0 && c + l == m && board[r][c - 1] != '+')
+            return false;
+        if (c != 0 && c + l < m && board[r][c + l] != '+' && board[r][c - 1] != '+')
+            return false;
+
+        for (int i = 0; i < word.length(); i++) {
+            if (board[r][c + i] != '-' && word.charAt(i) != board[r][c + i])
+                return false;
+        }
+
+        return true;
+    }
+
+    public static int place_H(char[][] board, String word, int r, int c) {
+        int loc = 0;
+        for (int i = 0; i < word.length(); i++) {
+            if (board[r][c + i] == '-') {
+                loc ^= (1 << i);
+                board[r][c + i] = word.charAt(i);
+            }
+        }
+
+        return loc;
+    }
+
+    public static void unPlace_H(char[][] board, String word, int r, int c, int loc) {
+        for (int i = 0; i < word.length(); i++) {
+            int mask = (1 << i);
+            if ((loc & mask) != 0) {
+                board[r][c + i] = '-';
+            }
+        }
+    }
+
+    public static boolean isPossibleToPlace_V(char[][] board, String word, int r, int c) {
+        int l = word.length(), n = board.length;
+        if (r + l > n)
+            return false;
+        if (r == 0 && r + l < n && board[r + l][c] != '+')
+            return false;
+        if (r != 0 && r + l == n && board[r - 1][c] != '+')
+            return false;
+        if (r != 0 && r + l < n && board[r + l][c] != '+' && board[r - 1][c] != '+')
+            return false;
+
+        for (int i = 0; i < word.length(); i++) {
+            if (board[r + i][c] != '-' && word.charAt(i) != board[r + i][c])
+                return false;
+        }
+
+        return true;
+    }
+
+    public static int place_V(char[][] board, String word, int r, int c) {
+        int loc = 0;
+        for (int i = 0; i < word.length(); i++) {
+            if (board[r + i][c] == '-') {
+                loc ^= (1 << i);
+                board[r + i][c] = word.charAt(i);
+            }
+        }
+
+        return loc;
+
+    }
+
+    public static void unPlace_V(char[][] board, String word, int r, int c, int loc) {
+        for (int i = 0; i < word.length(); i++) {
+            int mask = (1 << i);
+            if ((loc & mask) != 0) {
+                board[r + i][c] = '-';
+            }
+        }
+    }
+
+    public static int crossWord(char[][] board, String[] words, int idx) {
+        if (idx == words.length) {
+            return 1;
+        }
+
+        String word = words[idx];
+        int count = 0;
+        int n = board.length, m = board[0].length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (board[i][j] == '-' || board[i][j] == word.charAt(0)) {
+
+                    if (isPossibleToPlace_H(board, word, i, j)) {
+                        int loc = place_H(board, word, i, j);
+                        count += crossWord(board, words, idx + 1);
+                        unPlace_H(board, word, i, j, loc);
+                    }
+
+                    if (isPossibleToPlace_V(board, word, i, j)) {
+                        int loc = place_V(board, word, i, j);
+                        count += crossWord(board, words, idx + 1);
+                        unPlace_V(board, word, i, j, loc);
+                    }
+
+                }
+            }
+        }
+
+        return count;
+    }
+
+    public static int goldMine(int[][] arr, int r, int c, int[][] dir) {
+        int n = arr.length, m = arr[0].length;
+        if (c == m - 1)
+            return arr[r][c];
+
+        int myMaxAns = 0;
+        for (int d = 0; d < dir.length; d++) {
+            int x = r + dir[d][0];
+            int y = c + dir[d][1];
+
+            if (x >= 0 && y >= 0 && x < n && y < m) {
+                int recMaxAns = goldMine(arr, x, y, dir);
+                if (recMaxAns + arr[r][c] > myMaxAns)
+                    myMaxAns = recMaxAns + arr[r][c];
+            }
+        }
+
+        return myMaxAns;
+    }
+
+    public static int goldMine(int[][] arr) {
+        int[][] dir = { { -1, 1 }, { 0, 1 }, { 1, 1 } };
+        int maxAns = 0;
+        int n = arr.length, m = arr[0].length;
+        for (int i = 0; i < n; i++) {
+            maxAns = Math.max(maxAns, goldMine(arr, i, 0, dir));
+        }
+
+        return maxAns;
+    }
 }
