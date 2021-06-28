@@ -66,6 +66,32 @@ public double findMaxAverage(int[] nums, int k) {
 }
 
 
+/// 337 housr robber
+
+public int rob(TreeNode root) {
+        
+    int [] res =houseRobber(root);
+    
+    return Math.max(res[0],res[1]);
+    
+}
+public int[] houseRobber(TreeNode root){
+    
+    if(root == null) return new int[2];
+    
+    int[] left = houseRobber(root.left);
+    int[] right = houseRobber(root.right);
+    
+    int [] myAns = new int[2];
+    myAns[0] = left[1] + root.val + right[1];
+    
+    myAns[1] = Math.max(left[0],left[1]) + Math.max(right[0],right[1]);
+    
+    return myAns;
+    
+    
+}
+
  public static void main(String[] args) {
         int [] arr ={2,4,8,1,5,0,88,98,66};
             int data= 97;
