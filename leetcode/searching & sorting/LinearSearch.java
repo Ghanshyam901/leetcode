@@ -41,6 +41,30 @@ public String removeOuterParentheses(String s) {
     return sb.toString();
 }
 
+////643
+
+public double findMaxAverage(int[] nums, int k) {
+  
+        
+        
+    int sum =0;
+    for(int i =0; i<k; i++){
+        sum+=nums[i];
+    }
+    
+    int max =sum;
+    
+    for(int i =k; i<nums.length; i++){
+        sum =sum + nums[i];
+        sum = sum - nums[i-k];
+        
+        
+        max = Math.max(sum,max);
+    }
+    return (max*1.0)/k;
+        
+}
+
 
  public static void main(String[] args) {
         int [] arr ={2,4,8,1,5,0,88,98,66};
