@@ -92,6 +92,23 @@ public int[] houseRobber(TreeNode root){
     
 }
 
+// 1372  zig-zag
+int maxLength =0;
+public int longestZigZag(TreeNode root) {
+    longestZigZag_(root);
+    return maxLength;
+}
+public int[] longestZigZag_(TreeNode root){
+    if(root == null) return new int[]{-1,-1};
+    
+    int [] left = longestZigZag_(root.left);
+    int [] right = longestZigZag_(root.right);
+    
+    maxLength = Math.max(maxLength,Math.max(left[1],right[0])+1);
+    return new int[] {left[1]+1,right[0]+1};
+    
+}
+
  public static void main(String[] args) {
         int [] arr ={2,4,8,1,5,0,88,98,66};
             int data= 97;
