@@ -37,6 +37,35 @@ public class google{
     }
 
 
+    /// jump 2 lc: 45
+
+    public int jump(int[] nums) {
+        // int count =0;
+        Integer [] dp = new Integer[nums.length];
+            dp[nums.length-1] =0;    
+            
+        for(int i = nums.length-2; i>=0; i--){
+            int steps = nums[i];
+            
+         int min = Integer.MAX_VALUE;
+            for(int j =1; j<=steps && i+j < nums.length; j++){
+                if(dp[i+j] != null && dp[i+j] < min){
+                    min = dp[i+j];  
+                    // count++;
+                }
+            }
+            
+            if(min != Integer.MAX_VALUE){
+                dp[i] = min+1;
+                // count++;
+            }
+        }
+     
+        
+        return dp[0];
+    }
+
+
 public static void main(String[] args) {
     
 }
