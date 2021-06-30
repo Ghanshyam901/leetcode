@@ -1,6 +1,7 @@
 {
     "java.project.sourcePaths": [
         "tree",
-        "leetcode/searching & sorting"
+        "leetcode/searching & sorting",
+        "Basic"
     ]
 }
