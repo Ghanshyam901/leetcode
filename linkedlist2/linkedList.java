@@ -78,7 +78,7 @@ public boolean isPalindrome(ListNode head) {
 }
 
 
-/// fold list 
+/// fold list    ///pepcoding
 
 public static void fold(ListNode head) {
     if(head == null || head.next == null){
@@ -134,12 +134,39 @@ public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
      return dummy.next;
  }
 
+ //// unfold list  ///pep
+ public static void unfold(ListNode head) {
+    if (head == null || head.next == null)
+        return;
+
+    ListNode c1 = head, c2 = head.next, nHead = c2;
+    while (c2 != null && c2.next != null) {
+        ListNode f1 = c2.next;
+
+        c1.next = f1;
+        c2.next = f1.next;
+
+        c1 = c1.next; // c1 = f1;
+        c2 = c2.next; // c2 = c1.next;
+    }
+
+    c1.next = null;
+    nHead = reverse(nHead);
+    c1.next = nHead;
+}
 
 
+//// mergesort linked list
+public static ListNode mergeSort(ListNode head) {
+    if (head == null || head.next == null)
+        return head;
 
+    ListNode mid = midNode(head);
+    ListNode nHead = mid.next;
+    mid.next = null;
 
-
-
+    return mergeTwoLists(mergeSort(head), mergeSort(nHead));
+}
 
 
     public static void main(String[] args) {
