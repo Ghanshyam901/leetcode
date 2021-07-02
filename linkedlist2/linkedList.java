@@ -8,7 +8,7 @@ public class linkedList {
             this.val = val;
         }
     }
-//// 876
+//// 876 leetcode
     public ListNode middleNode(ListNode head) {
         if(head == null || head.next == null) return head;
         
