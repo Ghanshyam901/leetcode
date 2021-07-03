@@ -20,7 +20,7 @@ public class moorishTraversal{
             }
             return node;
         }
-
+// 94
         public static ArrayList<Integer> morrisInOrderTraversal(TreeNode root){
                 ArrayList<Integer> ans = new ArrayList<>();
 
@@ -115,6 +115,31 @@ public boolean isValidBST(TreeNode root) {
     }    
     return true;
     
+}
+
+/// 98 by using stack (linkedlIST);
+public void insertAllLeft(TreeNode node, LinkedList<TreeNode> st) {
+    while (node != null) {
+        st.addFirst(node);
+        node = node.left;
+    }
+}
+
+public boolean isValidBST_(TreeNode root) {
+    LinkedList<TreeNode> st = new LinkedList<>();
+    insertAllLeft(root, st);
+    long prev = -(long) 1e13;
+    while (st.size() != 0) {
+        TreeNode rnode = st.removeFirst();
+
+        if (prev >= rnode.val)
+            return false;
+        prev = rnode.val;
+
+        insertAllLeft(rnode.right, st);
+    }
+
+    return true;
 }
 
 
