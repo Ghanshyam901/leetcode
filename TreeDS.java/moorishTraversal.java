@@ -29,7 +29,7 @@ public class moorishTraversal{
                 while(curr != null){
                     TreeNode left = curr.left;
                     if(left == null){
-                        ans.add(left.val);
+                        ans.add(curr.val);
                         curr =curr.right;
 
                     }else{
@@ -47,6 +47,8 @@ public class moorishTraversal{
                 }
                 return ans;
         }
+
+
         public static ArrayList<Integer> morrisPreOrderTraversal(TreeNode root){
             ArrayList<Integer> ans = new ArrayList<>();
 
@@ -55,7 +57,7 @@ public class moorishTraversal{
             while(curr != null){
                 TreeNode left = curr.left;
                 if(left == null){
-                    ans.add(left.val);
+                    ans.add(curr.val);
                     curr =curr.right;
 
                 }else{
