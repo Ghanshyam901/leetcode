@@ -142,9 +142,71 @@ public boolean isValidBST_(TreeNode root) {
     return true;
 }
 
+// 173
+
+//173
+
+class BSTIterator {
+
+    private LinkedList<TreeNode> st = new LinkedList<>();
+
+        public BSTIterator(TreeNode root) {
+            insertAllLeft(root, st);
+        }
+
+        private void insertAllLeft(TreeNode node, LinkedList<TreeNode> st) {
+            while (node != null) {
+                st.addFirst(node);
+                node = node.left;
+            }
+        }
+
+        public int next() {
+            TreeNode rn = st.removeFirst();
+            insertAllLeft(rn.right, st);
+            return rn.val;
+        }
+
+        public boolean hasNext() {
+            return st.size() != 0;
+
+        }
+}
+
+/// letcode 230
+
+public int kthSmallest(TreeNode root, int k) {
+    int rv = -1;
+       TreeNode curr = root;
+       while (curr != null) {
+           TreeNode left = curr.left;
+           if (left == null) {
+               if (--k == 0)
+                   rv = curr.val;
+               curr = curr.right;
+           } else {
+               TreeNode rightMostNode = rightMostNode(left, curr);
+               if (rightMostNode.right == null) { // thread creation block
+                   rightMostNode.right = curr; // thread is created
+
+                   curr = curr.left;
+               } else { // thread destroy block
+                   rightMostNode.right = null; // thread is cut down
+
+                   if (--k == 0)
+                       rv = curr.val;
+
+                   curr = curr.right;
+               }
+           }
+       }
+
+       return rv;
+   }
+
 
 
     public static void main(String[] args) {
-        
+        // rightMostNode(node, curr);
     }
 }
