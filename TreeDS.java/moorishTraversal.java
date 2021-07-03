@@ -34,11 +34,11 @@ public class moorishTraversal{
 
                     }else{
                         TreeNode RightMostNode = rightMostNode(left,curr);
-                        if(RightMostNode.right == null){
-                            RightMostNode.right = curr;
+                        if(RightMostNode.right == null){ // thread creation block
+                            RightMostNode.right = curr; //thread is cut down 
                             curr= curr.left;
-                        }else{
-                            RightMostNode.right = null;
+                        }else{ // threaddistroy block
+                            RightMostNode.right = null;  //thread is cut down
                             ans.add(curr.val);
                             curr = curr.right;
 
