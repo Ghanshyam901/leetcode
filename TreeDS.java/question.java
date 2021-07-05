@@ -14,7 +14,7 @@ public class question {
             }
          }
 
-/// 98 is valid Bst
+/// 98 is valid Bst ..........
 
 TreeNode prev = null;
 public boolean isValidBST(TreeNode root) {
