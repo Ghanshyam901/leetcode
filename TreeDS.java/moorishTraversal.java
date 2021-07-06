@@ -204,7 +204,51 @@ public int kthSmallest(TreeNode root, int k) {
        return rv;
    }
 
+   //// doubly linked lisyt
 
+   public static TreeNode bToDLL(TreeNode root) {
+        TreeNode dummy = new TreeNode(-1);
+        TreeNode curr = root;
+        TreeNode prev  = dummy;
+
+        while(curr != null){
+            TreeNode left  = curr.left;
+            if(left == null){
+                    prev.right = curr;
+                    curr.left = prev;
+
+                    prev = prev.right;
+                    curr =curr.right;
+
+
+            }else{
+
+                TreeNode rightNode = rightMostNode(left,curr);
+                if(rightNode.right == null){
+                    rightNode.right = curr;
+                    curr = curr.left;
+                }else{
+                    rightNode.right = null;
+                    prev.right = curr;
+                    curr.left = prev;
+
+                    prev = prev.right;
+                    curr =curr.right;
+                }
+
+            }
+        }
+        TreeNode head = dummy.right;
+        dummy.right = null;
+        head.left = null;
+
+        head.left = prev;
+        prev.right = head;
+
+        return head;
+
+
+  }
 
     public static void main(String[] args) {
         // rightMostNode(node, curr);
