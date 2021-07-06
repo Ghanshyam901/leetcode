@@ -249,6 +249,28 @@ public int kthSmallest(TreeNode root, int k) {
 
 
   }
+  /// pepcoding  ... Construct Bst From Inorder Traversal
+  /// https://www.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/trees/construct-bst-from-inorder-traversal/ojquestion
+  public static TreeNode constructFromInOrder_(int[] inOrder, int si, int ei) {
+        if(si > ei){
+            return null;
+        }
+    int mid = (si+ei)/2;
+    TreeNode root = new TreeNode(inOrder[mid]);
+
+    root.left = constructFromInOrder_(inOrder,si, mid-1);
+    root.right = constructFromInOrder_(inOrder, mid+1, ei);
+
+    return root;
+
+
+    
+}
+
+  public static TreeNode constructFromInOrder(int[] inOrder) {
+    
+return constructFromInOrder_(inOrder,0, inOrder.length-1);
+}
 
     public static void main(String[] args) {
         // rightMostNode(node, curr);
