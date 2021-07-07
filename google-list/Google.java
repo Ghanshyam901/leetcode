@@ -1,4 +1,7 @@
-public class google{
+import java.util.PriorityQueue;
+import java.util.HashMap;
+
+public class Google{
 
 
     //332
@@ -86,13 +89,63 @@ public class google{
             nums[idx2] = temp;
             i--;
         }
-        int ans = -1;
+        // int ans = -1;
         for(int i =0; i<n; i++){
             if(nums[i] != i+1) return i+1;
         }
         return n+1;
     }
 
+
+    // 871. Minimum Number of Refueling Stops
+
+    public int minRefuelStops(int target, int startFuel, int[][] stations) {
+        
+        if(startFuel >= target) return 0;
+        
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> (b-a));
+        int i =0;
+        int n= stations.length;
+        int stop =0;
+        int maxDis = startFuel;
+        
+        while(maxDis < target){
+            while(i < n && stations[i][0] <= maxDis){
+                pq.offer(stations[i++][1]);
+            }
+            
+            if(pq.isEmpty()) return -1;
+            maxDis +=pq.poll();
+            stop++;
+        }
+        return stop;
+    }
+    //174. Dungeon Game
+
+    public int calculateMinimumHP(int[][] dungeon) {
+        if (dungeon == null || dungeon.length == 0 || dungeon[0].length == 0)
+            return 0;
+        HashMap<String, Integer> hm = new HashMap<>();
+        
+        return rec(0, 0, dungeon, hm);
+    }
+    
+    private int rec(int i, int j, int[][] dungeon, HashMap<String, Integer> hm) {
+        
+        if(i >= dungeon.length || j >= dungeon[0].length)
+            return Integer.MAX_VALUE;
+        String key = i + "king"  + j;
+        if(hm.containsKey(key))
+             return hm.get(key);
+        int next = Math.min(rec(i+1, j, dungeon, hm), rec(i, j+1, dungeon, hm));
+    
+        if(next == Integer.MAX_VALUE)
+           next  = 1;
+        
+        int res = Math.max(next - dungeon[i][j], 1);
+        hm.put(key, res);
+        return res;
+    }
 
 public static void main(String[] args) {
     
