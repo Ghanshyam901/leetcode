@@ -190,7 +190,7 @@ public class BinaryTree {
         return -1;
     }
 
-    public  List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+    public static  List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
 
         ArrayList<TreeNode> path = new ArrayList<>();
         nodeToRootPath_(root, target.val, path);
@@ -242,8 +242,8 @@ public class BinaryTree {
     }
 
     public static void burningTree(TreeNode root) {
-        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
-        burningTree(root,data,ans);
+        // ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        // burningTree(root,data,ans);
 
     }
 

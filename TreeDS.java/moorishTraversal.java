@@ -13,7 +13,7 @@ public class moorishTraversal{
             this.val = val;
         }
 
-
+    }
         public static TreeNode rightMostNode(TreeNode node, TreeNode curr){
             while(node.right != null && node.right != curr){
                     node  = node.right;
@@ -271,6 +271,17 @@ public int kthSmallest(TreeNode root, int k) {
     
 return constructFromInOrder_(inOrder,0, inOrder.length-1);
 }
+
+
+
+
+public static TreeNode SortedDLLToBST(TreeNode head) {
+    return null;
+  }
+
+
+
+
 
     public static void main(String[] args) {
         // rightMostNode(node, curr);
