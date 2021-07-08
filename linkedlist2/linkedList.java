@@ -1,5 +1,6 @@
 import java.util.List;
 
+import jdk.nashorn.internal.ir.LiteralNode;
 import jdk.nashorn.internal.runtime.ListAdapter;
 
 public class linkedList {
@@ -254,7 +255,7 @@ public static ListNode segregateEvenOdd(ListNode head) {
 
 //// Reverse Node Of Linkedlist In K Group
 
-public int length(ListNode head)
+public static int length(ListNode head)
 {
     int len = 0;
     while (head != null)
@@ -264,9 +265,10 @@ public int length(ListNode head)
     }
     return len;
 }
-ListNode th = null, tt = null;
+  static ListNode th = null;  
+static ListNode tt = null;
 
-public void addFirstNode(ListNode node)
+public static void addFirstNode(ListNode node)
 {
     if (th == null)
         th = tt = node;
@@ -277,7 +279,7 @@ public void addFirstNode(ListNode node)
     }
 }
 
-public ListNode reverseInKGroup(ListNode head, int k)
+public static ListNode reverseInKGroup(ListNode head, int k)
 {
     if (head == null || head.next == null || k <= 1)
         return head;
@@ -314,6 +316,83 @@ public ListNode reverseInKGroup(ListNode head, int k)
 
     return oh;
 }
+
+
+// Segregate 01 Node Of Linkedlist Over Swapping Nodes
+
+public static ListNode segregate01(ListNode head) {
+    if(head == null || head.next == null) return head;
+  
+    ListNode zero = new ListNode(-1);
+    ListNode one = new ListNode(-1);
+  
+    ListNode zero_p = zero;
+    ListNode one_p = one;
+    ListNode curr = head;
+  
+    while (curr != null){
+        if(curr.val== 0){
+          zero_p.next = curr;
+          zero_p = curr;
+        }else{
+            one_p.next = curr;
+            one_p = curr;
+  
+        }
+        curr = curr.next;
+    }
+  
+    zero_p.next = null;
+    one_p.next = null;
+  
+    zero_p.next = one.next;
+  
+    return zero.next;
+  
+}
+
+// Segregate 012 Node Of Linkedlist Over Swapping Nodes   output  ///tle
+
+
+public static ListNode segregate012(ListNode head) {
+    if(head == null || head.next == null) return head;
+ 
+     ListNode zero = new ListNode(-1);
+     ListNode one = new ListNode(-1);
+     ListNode two = new ListNode(-1);
+ 
+     ListNode p_zero = zero;
+     ListNode p_one = one;
+     ListNode p_two = two;
+     ListNode curr = head;
+ 
+     while(curr != null){
+         if(curr.val == 0){
+             p_zero.next = curr;
+             p_zero = p_zero.next ;
+ 
+         }else if(curr.val == 1){
+             p_one.next = curr;
+             p_one = p_one.next ;
+         }else{
+             p_two.next = curr;
+             p_two = p_two.next ;
+ 
+         }
+ 
+         curr = curr.next;
+     }
+    
+     p_one = two.next;
+     p_zero.next = one.next;
+ 
+      p_two.next = null;
+     
+     return zero.next;
+ 
+ 
+ 
+ }
 
 
 
