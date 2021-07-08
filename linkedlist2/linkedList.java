@@ -173,20 +173,51 @@ public static ListNode mergeSort(ListNode head) {
 }
 
 //// leetcode 23
-public ListNode getTail(ListNode head){
-    if(head == null || head.next == null) return null;
+public ListNode mergeKSortedList_01(ListNode[] arr) {
+    ListNode res = null;
+    for (ListNode list : arr) {
+        res = mergeTwoLists(res, list);
+    }
+
+    return res;
+}
+
+public ListNode getTail(ListNode head) {
+    if (head == null || head.next == null)
+        return head;
 
     ListNode curr = head;
-
-    while(head != null || head.next != null){
+    while (curr.next != null)
         curr = curr.next;
 
-    }
     return curr;
 }
-public ListNode mergeKLists(ListNode[] lists) {
-        
+
+public ListNode mergeKSortedList_02(ListNode[] arr) {
+    if (arr.length == 0)
+        return null;
+
+    ListNode dummy = new ListNode(-1);
+    ListNode prev = dummy;
+    for (int i = 0; i < arr.length; i++) {
+        ListNode tail = getTail(arr[i]);
+        if (tail != null) {
+            prev.next = arr[i];
+            prev = tail;
+        }
+    }
+
+    return mergeSort(dummy.next);
 }
+
+public ListNode mergeKSortedList_03(ListNode[] arr, int si, int ei) {
+    if (si == ei)
+        return arr[si];
+
+    int mid = (si + ei) / 2;
+    return mergeTwoLists(mergeKSortedList_03(arr, si, mid), mergeKSortedList_03(arr, mid + 1, ei));
+}
+
 
 ///Segregate Even And Odd Nodes In A Linkedlist
 
@@ -219,8 +250,72 @@ public static ListNode segregateEvenOdd(ListNode head) {
 
   return even.next;
 
-
 }
+
+//// Reverse Node Of Linkedlist In K Group
+
+public int length(ListNode head)
+{
+    int len = 0;
+    while (head != null)
+    {
+        head = head.next;
+        len++;
+    }
+    return len;
+}
+ListNode th = null, tt = null;
+
+public void addFirstNode(ListNode node)
+{
+    if (th == null)
+        th = tt = node;
+    else
+    {
+        node.next = th;
+        th = node;
+    }
+}
+
+public ListNode reverseInKGroup(ListNode head, int k)
+{
+    if (head == null || head.next == null || k <= 1)
+        return head;
+
+    int len = length(head);
+    ListNode curr = head, oh = null, ot = null;
+    while (curr != null && len >= k)
+    {
+        int tempK = k;
+        while (tempK-- > 0)
+        {
+            ListNode forw = curr.next;
+            curr.next = null;
+            addFirstNode(curr);
+            curr = forw;
+        }
+
+        if (oh == null)
+        {
+            oh = th;
+            ot = tt;
+        }
+        else
+        {
+            ot.next = th;
+            ot = tt;
+        }
+
+        th = tt = null;
+        len -= k;
+    }
+
+    ot.next = curr;
+
+    return oh;
+}
+
+
 
 
     public static void main(String[] args) {
