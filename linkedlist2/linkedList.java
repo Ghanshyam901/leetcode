@@ -1,3 +1,7 @@
+import java.util.List;
+
+import jdk.nashorn.internal.runtime.ListAdapter;
+
 public class linkedList {
     
     public static class ListNode {
@@ -166,6 +170,56 @@ public static ListNode mergeSort(ListNode head) {
     mid.next = null;
 
     return mergeTwoLists(mergeSort(head), mergeSort(nHead));
+}
+
+//// leetcode 23
+public ListNode getTail(ListNode head){
+    if(head == null || head.next == null) return null;
+
+    ListNode curr = head;
+
+    while(head != null || head.next != null){
+        curr = curr.next;
+
+    }
+    return curr;
+}
+public ListNode mergeKLists(ListNode[] lists) {
+        
+}
+
+///Segregate Even And Odd Nodes In A Linkedlist
+
+public static ListNode segregateEvenOdd(ListNode head) {
+  if(head == null || head.next == null) return head;
+  
+  ListNode even = new ListNode(-1);
+  ListNode odd = new ListNode(-1);
+
+  ListNode op = odd;
+  ListNode ep = even;
+  ListNode curr = head;
+
+  while (curr != null){
+      if(curr.val % 2 == 0){
+        ep.next = curr;
+        ep = curr;
+      }else{
+          op.next = curr;
+          op = curr;
+
+      }
+      curr = curr.next;
+  }
+
+  ep.next = null;
+  op.next = null;
+
+  ep.next = odd.next;
+
+  return even.next;
+
+
 }
 
 
