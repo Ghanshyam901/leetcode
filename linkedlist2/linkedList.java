@@ -351,7 +351,7 @@ public static ListNode segregate01(ListNode head) {
   
 }
 
-// Segregate 012 Node Of Linkedlist Over Swapping Nodes   output  ///tle
+// Segregate 012 Node Of Linkedlist Over Swapping Nodes   output  /// o(n) , o(1)
 
 
 public static ListNode segregate012(ListNode head) {
@@ -383,7 +383,7 @@ public static ListNode segregate012(ListNode head) {
          curr = curr.next;
      }
     
-     p_one = two.next;
+     p_one.next = two.next;
      p_zero.next = one.next;
  
       p_two.next = null;
