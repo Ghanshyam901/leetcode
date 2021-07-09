@@ -444,6 +444,33 @@ public static ListNode segregate012(ListNode head) {
 
 
 }
+///// Segregate Node Of Linkedlist Over Pivot Index
+
+
+public static ListNode segregate(ListNode head, int pivotIdx) {
+    ListNode pivotNode = head;
+    while (pivotIdx-- > 0)
+        pivotNode = pivotNode.next;
+
+    ListNode large = new ListNode(-1), small = new ListNode(-1), sp = small, lp = large, curr = head;
+    while (curr != null) {
+        if (curr != pivotNode && curr.val <= pivotNode.val) {
+            sp.next = curr;
+            sp = sp.next;
+        } else if (curr != pivotNode) {
+            lp.next = curr;
+            lp = lp.next;
+        }
+        curr = curr.next;
+    }
+
+    sp.next = lp.next = pivotNode.next = null;
+    sp.next = pivotNode;
+    pivotNode.next = large.next;
+    return small.next;
+      
+  }
+
 
 
 
