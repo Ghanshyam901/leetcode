@@ -389,10 +389,61 @@ public static ListNode segregate012(ListNode head) {
       p_two.next = null;
      
      return zero.next;
- 
- 
- 
  }
+
+
+  //Segregate Node Of Linkedlist Over Last Index.
+
+ public static ListNode getTaiL(ListNode head){
+    
+    if(head == null || head.next == null){
+        return head;
+    }
+    ListNode tail = head;
+     while(tail.next != null){
+         tail = tail.next;
+     }
+     return tail;
+ }
+
+ public static ListNode segregateOnLastIndex(ListNode head) {
+    
+    if(head == null || head.next == null){
+        return head;
+    }
+
+    ListNode tail = getTaiL(head);
+
+    ListNode small = new ListNode(-1);
+    ListNode large = new ListNode(-1);
+
+    ListNode ps = small;
+    ListNode pl = large;
+    ListNode curr = head;
+    
+    while(curr != null){
+        if(curr.val <= tail.val){
+            ps.next = curr;
+            ps = ps.next;
+        }else{
+            pl.next = curr;
+            pl = pl.next;
+
+        }
+        curr = curr.next;
+    }
+
+
+   ps.next = null;
+   pl.next = null;
+    ps.next = large.next;
+     
+
+    return ps;
+
+
+
+}
 
 
 
