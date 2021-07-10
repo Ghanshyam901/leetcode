@@ -284,6 +284,59 @@ public class Codec {
 }
 
 
+/// 105. Construct Binary Tree from Preorder and Inorder Traversal
+
+public TreeNode buildTree_(int[] preorder,int psi, int pei, int[] inorder,int isi,int iei) {
+            
+    if(psi > pei) return null;
+    int idx = isi;
+     while(inorder[idx] != preorder[psi])
+         idx++;
+    
+    int tel = idx-isi;
+    
+    TreeNode node = new TreeNode (preorder[psi]);
+    
+    node.left = buildTree_(preorder,psi+1,psi+tel,inorder,isi,idx-1);
+     node.right = buildTree_(preorder,psi+tel+1,pei,inorder,idx+1,iei);
+    
+    return node;
+
+}
+public TreeNode buildTree(int[] preorder, int[] inorder) {
+int n = preorder.length;
+
+return buildTree_(preorder,0,n-1,inorder,0,n-1);
+}
+
+
+//// Construct Binarytree From Postorder And Inorder Traversal
+    public static TreeNode buildTree_01(int[] inorder,int isi, int iei ,int[] postorder, int psi , int pei) {
+            if(psi > pei) return null;
+            int idx = isi;
+
+            while(inorder[idx] != postorder[pei]){
+                idx++;
+            }
+
+            int tnel = idx- isi;
+
+            TreeNode root = new TreeNode(postorder[pei]);
+
+            root.left = buildTree_01(inorder, isi, idx-1, postorder, psi, psi+tnel-1);
+            root.right = buildTree_01(inorder, idx+1 , iei, postorder, psi+tnel, pei-1);
+
+            return root;
+
+
+    
+    }
+public static TreeNode buildTree(int[] inorder, int[] postorder) {
+int n = inorder.length;
+return buildTree_01(inorder, 0, n-1, postorder, 0, n-1);
+}
+
+
 
         public static void main(String[] args) {
             // SortedDLLToBST(head);
