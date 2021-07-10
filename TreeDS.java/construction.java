@@ -1,4 +1,7 @@
 import java.lang.reflect.Array;
+import java.util.LinkedList;
+
+import jdk.javadoc.internal.doclets.formats.html.resources.standard;
 
 // import jdk.nashorn.api.tree.Tree;
 
@@ -199,12 +202,12 @@ public class construction {
         return root;
     }
 
-    public static TreeNode bstFromPreorder(int[] preorder) {
+    public static TreeNode bstFromPreorder_(int[] preorder) {
         int n = 1;
         int[] idx = new int[n];
         // idx[0] = 0;
 
-        return bstFromPreorder_(preorder, (int) -1e9, (int) 1e9, 0);
+        return bstFromPostorder_(preorder, (int) -1e9, (int) 1e9, 0);
     }
 
     // bst from preorder
@@ -362,6 +365,152 @@ public class construction {
       return constructFromPrePost(pre, 0, n-1, post, 0, n-1);
     }
 
+    // 297. Serialize and Deserialize Binary Tree
+
+    /// pep solution
+
+    public static void serialize(TreeNode root , StringBuilder sb){
+
+        if(root == null) {
+        sb.append("null,");
+        return;
+        }
+
+        sb.append(root.val +",");
+        serialize(root.left, sb);
+        serialize(root.right,sb);
+    }
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        StringBuilder sb = new StringBuilder();
+        serialize(root,sb);
+        return sb.toString();
+        
+    }
+    static int idx =0;
+    public TreeNode deserialize(String[] data) {
+
+        if(idx >= data.length || data[idx].equals("null")){
+            idx++;
+            return null;
+        }
+   
+        TreeNode node = new TreeNode(Integer.parseInt( data[idx++]));
+        node.left =deserialize(data);
+        node.right = deserialize(data);
+
+        return node;
+
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        String [] arr = data.split(",");
+       return  deserialize(arr);
+    }
+
+
+    /// 2nd sol 
+
+    public void serialize_(TreeNode root, StringBuilder sb) {
+        if (root == null) {
+            sb.append("# ");
+            return;
+        }
+
+        sb.append(root.val + " ");
+        serialize(root.left, sb);
+        serialize(root.right, sb);
+    }
+
+    public String serialize_(TreeNode root) {
+        if (root == null)
+            return "";
+        StringBuilder sb = new StringBuilder();
+        serialize_(root, sb);
+
+        return sb.toString();
+    }
+
+    int idx_ = 0;
+
+    public TreeNode deserialize_(String[] arr) {
+        if (idx_ >= arr.length || arr[idx_].equals("#")) {
+            idx_++;
+            return null;
+        }
+
+        TreeNode root = new TreeNode(Integer.parseInt(arr[idx_++]));
+        root.left = deserialize_(arr);
+        root.right = deserialize_(arr);
+
+        return root;
+    }
+
+    public TreeNode deserialize_(String data) {
+        if (data.length() == 0)
+            return null;
+
+        idx = 0;
+        String[] arr = data.split(" ");
+        return deserialize_(arr);
+    }
+    public class CodecBinaryTree_02 {
+
+        public String serialize(TreeNode root) {
+            if (root == null)
+                return "";
+            StringBuilder sb = new StringBuilder();
+            LinkedList<TreeNode> que = new LinkedList<>();
+            que.addLast(root);
+
+            while (que.size() != 0) {
+                TreeNode rnode = que.removeFirst();
+                sb.append((rnode != null ? rnode.val : "#") + " ");
+
+                if (rnode == null)
+                    continue;
+
+                que.addLast(rnode.left);
+                que.addLast(rnode.right);
+            }
+
+            return sb.toString();
+        }
+
+        public TreeNode deserialize(String data) {
+            if (data.length() == 0)
+                return null;
+
+            String[] arr = data.split(" ");
+            LinkedList<TreeNode> que = new LinkedList<>();
+            TreeNode root = new TreeNode(Integer.parseInt(arr[0]));
+            que.addLast(root);
+
+            int idx = 1;
+            while (que.size() != 0) {
+                TreeNode rnode = que.removeFirst();
+
+                if (!arr[idx].equals("#")) {
+                    TreeNode leftChild = new TreeNode(Integer.parseInt(arr[idx]));
+                    rnode.left = leftChild;
+                    que.addLast(leftChild);
+                }
+                idx++;
+
+                if (!arr[idx].equals("#")) {
+                    TreeNode rightChild = new TreeNode(Integer.parseInt(arr[idx]));
+                    rnode.right = rightChild;
+                    que.addLast(rightChild);
+                }
+                idx++;
+
+            }
+
+            return root;
+        }
+    }
 
     public static void main(String[] args) {
         // SortedDLLToBST(head);
