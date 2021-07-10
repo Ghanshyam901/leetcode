@@ -333,6 +333,36 @@ public class construction {
         return buildTree_01(inorder, 0, n - 1, postorder, 0, n - 1);
     }
 
+    /// 889. Construct Binary Tree from Preorder and Postorder Traversal
+
+    public static TreeNode constructFromPrePost(int[] preorder,int psi, int pei , int[] postorder, int ppsi, int ppei) {
+        
+     if(psi > pei) return null;
+
+     TreeNode root = new TreeNode(postorder[ppei]);
+
+     if(psi == pei) return root;
+
+     int idx = ppsi;
+
+     while(postorder[idx]  != preorder[psi+1]){
+         idx++;
+     }
+     int tnel = idx - ppsi+1;
+
+     root.left = constructFromPrePost(preorder, psi+1, psi+tnel, postorder, ppsi, ppsi +tnel-1);
+     root.right = constructFromPrePost(preorder, psi+tnel+1, pei, postorder, ppsi+tnel, ppei-1);
+     return root;
+
+        
+    }
+    public static TreeNode constructFromPrePost(int[] pre, int[] post) {
+      int n  = pre.length;
+
+      return constructFromPrePost(pre, 0, n-1, post, 0, n-1);
+    }
+
+
     public static void main(String[] args) {
         // SortedDLLToBST(head);
     }
