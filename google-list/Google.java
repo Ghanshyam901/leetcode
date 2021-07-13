@@ -1,5 +1,6 @@
 import java.util.PriorityQueue;
 import java.util.HashMap;
+import java.util.Arrays;
 
 public class Google{
 
@@ -145,6 +146,23 @@ public class Google{
         int res = Math.max(next - dungeon[i][j], 1);
         hm.put(key, res);
         return res;
+    }
+
+
+    //630. Course Schedule III
+
+    public int scheduleCourse(int[][] courses) {
+        Arrays.sort(courses,(a,b) -> a[1]-b[1]);  ///srot the array by lastday
+        PriorityQueue<Integer> queue = new PriorityQueue<>((a,b) -> b-a); // 
+        
+        int time =0;
+        for(int [] course : courses){
+            time+=course[0];
+            queue.add(course[0]);
+            if(time > course[1]) time-=queue.poll();
+            
+        }
+        return queue.size()+1;
     }
 
 public static void main(String[] args) {
