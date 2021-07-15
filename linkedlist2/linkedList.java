@@ -585,6 +585,76 @@ public static ListNode removeNthFromEnd(ListNode head, int n) {
     
   }
 
+  /// subtraction of two linked List
+
+   public static ListNode subtractTwoNumbers(ListNode l1, ListNode l2) {
+        if (l2 == null)
+            return l1;
+        l1 = reverseList(l1);
+        l2 = reverseList(l2);
+
+        ListNode dummy = new ListNode(-1), prev = dummy, c1 = l1, c2 = l2;
+
+        int borrow = 0;
+        while (c1 != null) {
+            int sub = borrow + c1.val - (c2 != null ? c2.val : 0);
+            if (sub < 0) {
+                borrow = -1;
+                sub += 10;
+            } else
+                borrow = 0;
+
+            prev.next = new ListNode(sub);
+            prev = prev.next;
+
+            c1 = c1.next;
+            if (c2 != null)
+                c2 = c2.next;
+        }
+
+        ListNode head = reverseList(dummy.next), curr = head;
+        while (curr != null && curr.val == 0) {
+            ListNode forw = curr.next;
+            curr.next = null;
+            curr = forw;
+        }
+
+        return curr != null ? curr : new ListNode(0);
+    }
+ // add two list in linkedList
+
+ public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    if (l1 == null || l2 == null)
+        return l1 != null ? l1 : l2;
+
+    l1 = reverseList(l1);
+    l2 = reverseList(l2);
+
+    ListNode dummy = new ListNode(-1), prev = dummy, c1 = l1, c2 = l2;
+    int carry = 0;
+
+    while (c1 != null || c2 != null || carry != 0) {
+        int sum = carry + (c1 != null ? c1.val : 0) + (c2 != null ? c2.val : 0);
+        carry = sum / 10;
+
+        prev.next = new ListNode(sum % 10);
+        prev = prev.next;
+
+        if (c1 != null)
+            c1 = c1.next;
+        if (c2 != null)
+            c2 = c2.next;
+    }
+
+    return reverseList(dummy.next);
+}
+
+
+//=================================================================================
+/// Multiply Two Linkedlist
+
+
+
 
 
 
