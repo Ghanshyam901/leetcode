@@ -1,4 +1,7 @@
+import jav
+
 public class LRUCache {
+
     // data Members
     private class ListNode {
         Integer key, value;
