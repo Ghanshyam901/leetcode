@@ -161,6 +161,56 @@ public class questions {
         return false;
     }
 
+    ////160. Intersection of Two Linked Lists
+
+
+    public static ListNode detectCycle(ListNode head){
+
+        if (head == null || head.next == null)
+            return null;
+        ListNode slow = head;
+        ListNode fast = head;
+    
+        while (fast != null && fast.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast)
+                break;
+        }
+    
+        if (slow != fast)
+            return null;
+    
+        slow = head;
+        while (slow != fast)
+        {
+    
+            slow = slow.next;
+            fast = fast.next;
+        }
+    
+        return slow;
+    }
+        
+        public static ListNode IntersectionNodeInTwoLL(ListNode headA, ListNode headB) {
+             if (headA == null || headB == null)
+            return null;
+            ListNode headAlength = headA;
+    
+    
+            while(headAlength.next != null){
+                headAlength  =headAlength.next;
+            }
+    
+          headAlength.next= headB;
+        
+           ListNode intersection = detectCycle(headA);
+    
+           return intersection;
+    
+        }
+
 
     public static void main(String[] args) {
         
