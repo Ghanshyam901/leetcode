@@ -299,6 +299,37 @@ public class questions {
             return dummy.next; 
             
         }
+///1669. Merge In Between Linked Lists
+
+
+        public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
+            ListNode l1 = list1;
+            ListNode prev = null;
+            
+            
+            ListNode l2 = list2;
+            while(l2.next != null){
+                l2 = l2.next;
+            }
+            
+            int idx = 0;
+            
+            while(l1 != null){
+                if(idx == a){
+                    prev.next = list2;
+                }
+                
+                if(idx == b){
+                    l2.next = l1.next;
+                }
+                idx++;
+                prev = l1;
+                l1 = l1.next;
+            }
+            return list1;
+    
+            
+        }
 
 
     public static void main(String[] args) {
