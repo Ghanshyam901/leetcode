@@ -274,6 +274,32 @@ public class questions {
             return dummy.next;
         }
 
+        // 
+
+        public ListNode insertionSortList_(ListNode head) {
+            if(head == null || head.next == null){
+                return head;
+            }
+            ListNode dummy = new ListNode(-1);
+            ListNode pre = dummy;
+            ListNode curr = head;
+            ListNode next = null;
+            
+            while(curr != null){
+                next = curr.next;
+                
+                while(pre.next != null && pre.next.val <curr.val ){
+                    pre = pre.next;
+                }
+                curr.next = pre.next;
+                pre.next = curr;
+                pre  = dummy;
+                curr = next;
+            }
+            return dummy.next; 
+            
+        }
+
 
     public static void main(String[] args) {
         
