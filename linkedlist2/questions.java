@@ -211,6 +211,69 @@ public class questions {
     
         }
 
+        /// 01
+
+        public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+            int a = length(headA);
+            int b = length(headB);
+            if(a > b) {
+                int d = a - b;
+                for(int i = 0; i < d; i++) {
+                    headA = headA.next;
+                }
+            } else {
+                int d = b - a;
+                for(int i = 0; i < d; i++) {
+                    headB = headB.next;
+                }
+            }
+            while(headA != null && headB != null) {
+                if(headA == headB) {
+                    return headA;
+                }
+                headA = headA.next;
+                headB = headB.next;
+            }
+            return null;
+        }
+        private int length(ListNode head) {
+            int len = 0;
+            while(head != null) {
+                len++;
+                head = head.next;
+            }
+            return len;
+        }
+
+        // 147
+
+        public ListNode insertionSortList(ListNode head) {
+            if (head == null || head.next == null) {
+                return head;
+            }
+            ListNode dummy = new ListNode(0);
+            dummy.next = head;
+    
+            ListNode node = head;
+            ListNode curr = head.next;
+            
+            while (curr != null) {
+                if (node.val <= curr.val) {
+                    node = node.next;
+                } else {
+                    ListNode prev = dummy;
+                    while (prev.next.val <= curr.val) {
+                        prev = prev.next;
+                    }
+                    node.next = curr.next;
+                    curr.next = prev.next;
+                    prev.next = curr;
+                }
+                curr = node.next;
+            }
+            return dummy.next;
+        }
+
 
     public static void main(String[] args) {
         
