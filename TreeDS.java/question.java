@@ -1,4 +1,4 @@
-import jdk.nashorn.api.tree.Tree;
+// import jdk.nashorn.api.tree.Tree;
 
 public class question {
     public class TreeNode {
@@ -29,6 +29,49 @@ public boolean isValidBST(TreeNode root) {
 
  return true;
 
+}
+
+
+// 701
+public TreeNode insertIntoBST(TreeNode root, int val) {
+    if(root == null) return new TreeNode(val);
+    
+    if(root.val < val) {
+        root.right = insertIntoBST(root.right, val);
+    }else{
+        root.left = insertIntoBST(root.left,val);
+    }
+    
+    return root;
+}
+
+// delete node in BST
+
+public int Maximun(TreeNode root){
+    TreeNode curr = root;
+    
+    while(curr.right != null){
+        curr = curr.right;
+    }
+    return curr.val;
+}
+public TreeNode deleteNode(TreeNode root, int key) {
+
+    if(root ==  null) return null;
+    
+    if(root.val > key) root.left = deleteNode(root.left,key);
+    else if(root.val < key) root.right = deleteNode(root.right,key);
+    
+    else{
+        if(root.left == null || root.right == null) return root.left != null ? root.left :                      root.right;
+        
+        int maxVal = Maximun(root.left);
+        
+        root.val = maxVal;
+        root.left = deleteNode(root.left,maxVal);
+    }
+    return root;
+    
 }
     
     public static void main(String[] args) {
