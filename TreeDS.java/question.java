@@ -1,5 +1,8 @@
 // import jdk.nashorn.api.tree.Tree;
 
+import java.util.Queue;
+import java.util.LinkedList;
+
 public class question {
     public class TreeNode {
             int val;
@@ -119,7 +122,7 @@ public int diameterOfBinaryTree_03(TreeNode root) {
 
     return Math.max(lh, rh) + 1;
 }
-public  int diameterOfBinaryTree(TreeNode root){
+public  int diameterOfBinaryTree_(TreeNode root){
     if(root == null) return 0;
         diameterOfBinaryTree_03(root);
     return maxDia;
@@ -143,7 +146,7 @@ public int height(TreeNode root) {
         return -1;
     }
     int lh = height(root.left);
-    int rh = rh = height(root.right);
+    int  rh = height(root.right);
     
     return Math.max(lh,rh)+1;
 }/// 100
@@ -162,7 +165,7 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
 
 // 100
 
-public boolean isSameTree(TreeNode p, TreeNode q) {
+public boolean isSameTree_(TreeNode p, TreeNode q) {
     if(p == null && q == null){
         return true;
         
@@ -206,11 +209,33 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
             
         }
         
-       
-        
-        
     }
      return true;
+}
+
+// 102
+
+public boolean isSymmetric(TreeNode root) {
+    Queue<TreeNode> que = new LinkedList<>();
+    que.offer(root);
+    que.offer(root);
+    
+    while(!que.isEmpty()){
+        TreeNode tree1 = que.poll();
+        TreeNode tree2 = que.poll();
+        // que.poll();
+        // que.poll();
+        
+        if(tree1 == null && tree2 == null) continue;
+        if(tree1 == null || tree2 == null) return false;
+        if(tree1.val != tree2.val)return false;
+        
+        que.offer(tree1.left);
+        que.offer(tree2.right);
+        que.offer(tree1.right);
+        que.offer(tree2.left);
+    }
+    return true;
 }
 
     
