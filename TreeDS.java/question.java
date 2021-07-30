@@ -238,6 +238,28 @@ public boolean isSymmetric(TreeNode root) {
     return true;
 }
 
+
+// 226. Invert Binary Tree
+public TreeNode invertTree(TreeNode root) {
+    if(root == null) return null;
+    
+    Queue<TreeNode> q = new LinkedList<>();
+    q.add(root);
+    
+    while(!q.isEmpty()){
+        TreeNode curr = q.poll();
+        TreeNode temp = curr.left;
+        
+        curr.left = curr.right;
+        curr.right = temp;
+        
+        if(curr.left != null) q.offer(curr.left);
+        if(curr.right != null) q.offer(curr.right);
+            
+    }
+    return root;
+}
+
     
     public static void main(String[] args) {
         
