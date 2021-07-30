@@ -145,7 +145,73 @@ public int height(TreeNode root) {
     int rh = rh = height(root.right);
     
     return Math.max(lh,rh)+1;
+}/// 100
+public boolean isSameTree(TreeNode p, TreeNode q) {
+    if(p == null && q == null)
+       return true;
+   if(p == null || q == null)
+       return false;
+   if(p.val != q.val)
+       return false;
+   
+   
+   return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+ 
 }
+
+// 100
+
+public boolean isSameTree(TreeNode p, TreeNode q) {
+    if(p == null && q == null){
+        return true;
+        
+    }
+    if(p == null || q == null){
+        return false;
+    }
+    
+    Queue<TreeNode> q1 = new LinkedList<>();
+     Queue<TreeNode> q2 = new LinkedList<>();
+    
+    q1.offer(p);
+    q2.offer(q);
+    
+    while(!q1.isEmpty() && !q2.isEmpty()){
+        TreeNode n1 = q1.peek();
+        TreeNode n2 =  q2.peek();
+        
+        if(n1.val != n2.val){
+            return false;
+        }
+        
+        q1.remove();
+        q2.remove();
+        
+        if(n1.left != null && n2.left != null){
+            q1.offer(n1.left);
+            q2.offer(n2.left);
+        }else if(n1.left != null || n2.left != null){
+            return false;
+        }else{
+            
+        }
+            
+           if(n1.right != null && n2.right != null){
+            q1.offer(n1.right);
+            q2.offer(n2.right);
+        }else if(n1.right != null || n2.right != null){
+            return false;
+        }else{
+            
+        }
+        
+       
+        
+        
+    }
+     return true;
+}
+
     
     public static void main(String[] args) {
         
