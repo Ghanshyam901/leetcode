@@ -102,6 +102,50 @@ public int findSecondMinimumValue(TreeNode root) {
         return right;
     }
 }
+
+
+/// 543 diameter of binary tree
+
+int maxDia = 0;
+
+public int diameterOfBinaryTree_03(TreeNode root) {
+    if (root == null)
+        return -1;
+    int lh = diameterOfBinaryTree_03(root.left);
+    int rh = diameterOfBinaryTree_03(root.right);
+
+    maxDia = Math.max(maxDia, lh + rh + 2);
+
+    return Math.max(lh, rh) + 1;
+}
+public  int diameterOfBinaryTree(TreeNode root){
+    if(root == null) return 0;
+        diameterOfBinaryTree_03(root);
+    return maxDia;
+}
+
+// 543. Diameter of Binary Tree
+
+public int diameterOfBinaryTree(TreeNode root) {
+    if (root == null)
+        return 0;
+    int leftTreeDia = diameterOfBinaryTree(root.left);
+    int rightTreeDia = diameterOfBinaryTree(root.right);
+
+    int leftHeight = height(root.left);
+    int rightHeight = height(root.right);
+
+    return Math.max(Math.max(leftTreeDia, rightTreeDia), leftHeight + rightHeight + 2);
+}
+public int height(TreeNode root) {
+    if(root == null){
+        return -1;
+    }
+    int lh = height(root.left);
+    int rh = rh = height(root.right);
+    
+    return Math.max(lh,rh)+1;
+}
     
     public static void main(String[] args) {
         
