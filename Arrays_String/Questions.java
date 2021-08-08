@@ -146,6 +146,115 @@ public List<Integer> majorityElement2(int[] nums) {
     return ans;
 }
 
+// ============================================================
+// 556. Next Greater Element III
+public int nextGreaterElement(int n) {
+    char[] number = (n + "").toCharArray();
+      
+      int i, j;
+      for (i = number.length-1; i > 0; i--){
+          if (number[i-1] < number[i]){
+             break;
+          }
+          
+   
+      }
+      if (i == 0){
+          return -1;
+      }
+      
+      
+      int x = number[i-1], smallest = i;
+      for (j = i+1; j < number.length; j++){
+          if (number[j] > x && number[j] <= number[smallest]){
+              smallest = j;
+          }
+      }
+     
+      char temp = number[i-1];
+      number[i-1] = number[smallest];
+      number[smallest] = temp;
+          
+      
+       // Arrays.sort(number, i, number.length);
+      reverseChar_(number,i);
+     
+      
+      long val = Long.parseLong(new String(number));
+      return (val <= Integer.MAX_VALUE) ? (int) val : -1;
+  }
+  private void reverseChar_(char [] arr , int i){
+      int start = i;
+      int end = arr.length-1;
+      while(end >= start){
+          char temp = arr[start];
+          arr[start] = arr[end];
+          arr[end] = temp;
+          end --;
+          start ++;
+      }
+  }
+
+  // 2 approach
+
+  public int nextGreaterElement_(int nums) {
+     
+    char[] arr = (nums+"").toCharArray();
+        
+        int i = arr.length-1;
+        
+        while(i > 0){
+            if(arr[i] > arr[i -1]){
+                break;
+            }
+            i--;
+        }
+        
+        if(i == 0){
+            return -1;
+        }
+        int val1 = i-1;
+        
+        int val2 = arr.length-1;
+        
+        while(val2 >= val1){
+            if(arr[val1] < arr[val2]){
+                break;
+            }
+            val2--;
+        }
+        
+        System.out.println(arr[val2]+" " + arr[val1]);
+        
+//         swap
+        
+        char temp = arr[val1];
+        arr[val1] = arr[val2];
+        arr[val2] = temp;
+        
+        reverseChar (arr,i);
+        
+        Long rev = Long.parseLong(new String(arr));
+        if(rev <= Integer.MAX_VALUE){
+            return rev.intValue();
+        }else{
+            return -1;
+        }
+    }
+    
+    private void reverseChar(char [] arr , int i){
+        int start = i;
+        int end = arr.length-1;
+        while(end >= start){
+            char temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            end --;
+            start ++;
+        }
+    }
+
+
 
 
 
