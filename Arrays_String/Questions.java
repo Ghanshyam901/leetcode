@@ -410,6 +410,27 @@ public int maxChunksToSorted(int[] arr) {
         
     }
 
+    // ==========================================================
+    // 238. Product of Array Except Self
+
+    public int[] productExceptSelf(int[] arr) {
+        
+        int[] ans = new int[arr.length];
+        int i=0;
+        int product=1;
+        
+        ans[0] = 1;
+        for(i=1; i<arr.length; i++){
+               ans[i] = arr[i-1]*ans[i-1];
+        }
+         
+        for(i=arr.length-2; i>=0; i--){
+            product = product*arr[i+1];
+            ans[i] = ans[i]*product;
+        }
+        return ans;
+    }
+
 
 
 
