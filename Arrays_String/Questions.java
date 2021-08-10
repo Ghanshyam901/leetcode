@@ -306,6 +306,59 @@ public int maxChunksToSorted(int[] arr) {
     return count;
 }
 
+// 768. Max Chunks To Make Sorted II
+
+    public int maxChunksToSorted_(int[] arr) {
+    int n = arr.length;
+
+    int [] prefixMax = new int[n];
+    int [] sufficMin = new int[n];
+
+    prefixMax[0] = arr[0];
+    sufficMin[n-1] = arr[n-1];
+
+    for(int i =1;i<n; i++){
+        prefixMax[i] = Math.max(prefixMax[i-1], arr[i]);
+    }
+
+    for(int i= n-2; i>=0; i--){
+        sufficMin[i] = Math.min(sufficMin[i+1],arr[i]);
+    }
+
+    int ans =0;
+
+    for(int i =0; i<n-1; i++ ){
+        if(prefixMax[i] <= sufficMin[i+1]){
+            ans++;
+        }
+    }
+    ans++;
+
+        return ans;
+    }
+
+    // 795. Number of Subarrays with Bounded Maximum
+
+    public int numSubarrayBoundedMax(int[] arr, int left, int right) {
+        // int n 
+        int ans =0;
+        int precount =0;
+        int i =0;
+
+        
+        for(int j =0; j<arr.length; j++){
+            if(arr[j] >= left && arr[j] <= right){
+                ans +=((j-i)+1);
+                precount += ((j-i)+1);
+            }else if(arr[j] < left){
+                ans +=precount;
+            }else{
+                i =j+1;
+                precount =0;
+            }
+        }
+        return ans;
+    }
 
 
 
