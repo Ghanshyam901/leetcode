@@ -291,6 +291,21 @@ public int maximumProduct(int[] nums) {
       return Math.max(max1*max2*max3, max1*min1*min2);
   }
 
+//   769. Max Chunks To Make Sorted
+
+public int maxChunksToSorted(int[] arr) {
+    int max = -(int)1e9;
+    int count =0;
+    
+    for(int i =0; i<arr.length; i++){
+        max = Math.max(arr[i],max);
+        if(max == i){
+            count++;
+        }
+    }
+    return count;
+}
+
 
 
 
