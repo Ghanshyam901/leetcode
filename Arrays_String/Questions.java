@@ -468,6 +468,74 @@ public int maxChunksToSorted(int[] arr) {
            
        }
 
+    //    849. Maximize Distance to Closest Person
+
+    public int maxDistToClosest(int[] seats) {
+        int maxval =0;
+        int  prev=-1;
+        int s=seats.length;
+        int i=0;
+        
+        if(seats[0]==1){prev=0;}
+        for (i=prev+1;i<s;i++){
+            if(seats[i]==1){                                 
+                if(prev !=-1){
+                    maxval = Math.max(maxval,((i+prev)/2)-prev);
+                }else{                    
+                     maxval = Math.max(maxval,i-1-prev);
+                }                
+                prev = i;
+            }
+        }
+        
+        return Math.max(maxval,s-1-prev);
+    }
+// ==============================================================================
+// 345. Reverse Vowels of a String
+
+    public String reverseVowels(String s) {
+            
+        if(s == null || s.length() <= 1){
+            return s;
+        }
+        char [] arr =  s.toCharArray();
+        int i =0;
+        int j = arr.length -1;
+        
+        while(i < j){
+            if(IsVowel(arr,i) && IsVowel(arr, j)){
+                swap(arr, i, j);
+                i++;
+                j--;
+            }else if(IsVowel(arr,i)){
+                j--;
+            }else if(IsVowel(arr,j)){
+                i++;
+            }else{
+                i++;
+                j--;
+            }
+        }
+        
+        return new String(arr);
+    }
+
+    //     check vowels 
+    public boolean IsVowel(char [] arr, int i){
+        
+        char ch = Character.toLowerCase(arr[i]);
+        
+        if(ch == 'a' || ch =='e' || ch == 'i' || ch == 'o' || ch == 'u'){
+            return true;
+        }
+        return false;
+    }
+    //     swap function
+    public void swap(char [] arr, int i , int j ){
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
 
 
 
