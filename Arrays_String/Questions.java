@@ -1,6 +1,8 @@
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
+
 public class Questions{
 
 
@@ -540,7 +542,7 @@ public int maxChunksToSorted(int[] arr) {
 
     // /===============================================
 
-    // 903 · Range Addition    /// lint code
+    // 903 · Range Addition    /// lint codet ad
     public static int[] getModifiedArray(int length, int[][] queries) {
         // write your code here
         int[] res = new int[length];
@@ -564,6 +566,33 @@ public int maxChunksToSorted(int[] arr) {
 
         return res;
     }
+
+    // 215. Kth Largest Element in an Array
+
+    public int findKthLargest(int[] nums, int k) {
+       
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        
+        for(int i =0; i<nums.length; i++){
+            pq.add(nums[i]);
+            
+            if(pq.size() > k){
+                
+             pq.poll();
+            }
+        }
+        
+        return pq.poll();
+        
+//         Arrays.sort(nums);
+        
+//         return nums[nums.length -k];
+        
+        
+    }
+
+
+    
 
 
 
