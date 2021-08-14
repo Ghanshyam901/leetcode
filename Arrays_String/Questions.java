@@ -606,7 +606,7 @@ public int maxChunksToSorted(int[] arr) {
 
 
     // 33. Search in Rotated Sorted Array
-    
+
     public int search(int[] nums, int target) {
         int si =0; 
        int ei = nums.length-1;
@@ -630,6 +630,40 @@ public int maxChunksToSorted(int[] arr) {
        }
        return -1;
    }
+
+//    415. Add Strings
+
+public String addStrings(String num1, String num2) {
+        
+    StringBuilder ans = new StringBuilder();
+    
+    int i = num1.length() -1;
+    int j = num2.length() -1;
+    
+    int carry  =0;
+    
+    while(i >=0 || j >=0){
+        
+        int isum = i >= 0 ? num1.charAt(i)-'0' : 0;
+        int jsum = j >= 0 ? num2.charAt(j)-'0' :0;
+        
+        
+        int sum = isum +jsum +carry;
+        
+        carry = sum /10;
+        ans.append(sum%10);
+        
+        i--;
+        j--;
+        
+    }
+    
+    if(carry !=0){
+        ans.append(1);
+    }
+    return ans.reverse().toString();
+    
+}
 
 
 
