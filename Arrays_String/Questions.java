@@ -666,6 +666,25 @@ public String addStrings(String num1, String num2) {
     
 }
 
+// 915. Partition Array into Disjoint Intervals
+
+
+public int partitionDisjoint(int[] nums) {
+    int currMax = nums[0];
+    int nextMax = nums[0];
+    int partIdx =1;
+    
+    for(int i =01; i<nums.length; i++){
+        if(nums[i] < currMax){
+            partIdx =i+1;
+            currMax = nextMax;
+        }else{
+            nextMax = Math.max(nums[i], nextMax);
+        }
+    }
+    return partIdx;
+}
+
 
 
 
