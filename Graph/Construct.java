@@ -112,6 +112,41 @@ public class Construct {
         vis[src] = false;
     }
 
+    public static class pair {
+        int heavyPath = 0;
+        String psf = "";
+
+        pair() {
+
+        }
+
+        pair(int heavyPath, String psf) {
+            this.heavyPath = heavyPath;
+            this.psf = psf;
+        }
+    }
+
+    public static pair heavyPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
+        if (src == dest) {
+            return new pair(0, src + "");
+        }
+
+        vis[src] = true;
+        pair myAns = new pair(-1, "");
+        for (Edge e : graph[src]) {
+            if (!vis[e.v]) {
+                pair recAns = heavyPath(graph, e.v, dest, vis);
+                if (recAns.heavyPath != -1 && recAns.heavyPath + e.w > myAns.heavyPath) {
+                    myAns.heavyPath = recAns.heavyPath + e.w;
+                    myAns.psf = src + recAns.psf;
+                }
+            }
+        }
+
+        vis[src] = false;
+        return myAns;
+    }
+
 
 
 
