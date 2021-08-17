@@ -30,14 +30,32 @@ public class Construct {
 
         }
     }
+
+    public static int findEdge(ArrayList<Edge> [] graph, int u, int v){
+        for(int i =0; i<graph[u].size(); i++){
+            Edge e = graph[u].get(i);
+            if(e.v == v){
+                return i;
+            }
+        }
+
+        return -1;
+    }
   
 
-    public static void removeEdge(ArrayList<Edge> [] graph, int v, int w){
+    public static void removeEdge(ArrayList<Edge> [] graph, int u, int v){
+         int idx1 = findEdge(graph, u, v);
+         graph[u].remove(idx1);
 
+         int idx2 = findEdge(graph, v, u);
+         graph[v].remove(idx2);
     }
 
-    public static void removeVtx(ArrayList<Edge> [] graph, int v, int w){
-
+    public static void removeVtx(ArrayList<Edge> [] graph, int u){
+        for(int i = graph[u].size(); i>=0; i--){
+            Edge e = graph[u].get(i);
+            removeEdge(graph, u, e.v);
+        }
     }
     @SuppressWarnings("unchecked")  // FOR REMOVING EROOR MSG 
     public static void constructGraph() {
