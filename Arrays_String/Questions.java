@@ -672,17 +672,92 @@ public String addStrings(String num1, String num2) {
 public int partitionDisjoint(int[] nums) {
     int currMax = nums[0];
     int nextMax = nums[0];
-    int partIdx =1;
-    
-    for(int i =01; i<nums.length; i++){
-        if(nums[i] < currMax){
-            partIdx =i+1;
+    int partIdx = 1;
+
+    for (int i = 01; i < nums.length; i++) {
+        if (nums[i] < currMax) {
+            partIdx = i + 1;
             currMax = nextMax;
-        }else{
+        } else {
             nextMax = Math.max(nums[i], nextMax);
         }
     }
     return partIdx;
+}
+
+// 1007. Minimum Domino Rotations For Equal Row
+
+public int minDominoRotations(int[] tops, int[] bottoms) {
+    int count_1 = 0;
+    int count_2 = 0;
+    int count_3 = 0;
+    int count_4 = 0;
+
+    int num1 = tops[0];
+    int num2 = bottoms[0];
+
+    // COUTN1
+    // NUM1
+
+    for (int i = 0; i < tops.length; i++) {
+
+        if (count_1 != Integer.MAX_VALUE) {
+            if (tops[i] == num1) {
+
+            }
+
+            else if (bottoms[i] == num1) {
+                count_1++;
+            } else {
+                count_1 = Integer.MAX_VALUE;
+            }
+        }
+
+        // COUNT 2;
+
+        if (count_2 != Integer.MAX_VALUE) {
+
+            if (bottoms[i] == num1) {
+
+            } else if (tops[i] == num1) {
+                count_2++;
+            } else {
+                count_2 = Integer.MAX_VALUE;
+            }
+        }
+
+        // COUNT 3
+
+        if (count_3 != Integer.MAX_VALUE) {
+            if (bottoms[i] == num2) {
+
+            }
+
+            else if (tops[i] == num2) {
+                count_3++;
+            } else {
+                count_3 = Integer.MAX_VALUE;
+            }
+        }
+
+        if (count_4 != Integer.MAX_VALUE) {
+
+            if (tops[i] == num2) {
+
+            }
+
+            else if (bottoms[i] == num2) {
+                count_4++;
+            } else {
+                count_4 = Integer.MAX_VALUE;
+            }
+        }
+    }
+
+    int ans = Math.min(Math.min(count_1, count_2), Math.min(count_3, count_4));
+
+    return ans == Integer.MAX_VALUE ? -1 : ans;
+
 }
 
 
