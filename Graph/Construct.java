@@ -57,6 +57,65 @@ public class Construct {
             removeEdge(graph, u, e.v);
         }
     }
+    public static boolean hasPath(ArrayList<Edge> [] graph,int src, int des, boolean [] vis){
+            if(src == des){
+                return true;
+            }
+
+            boolean res = false;
+            vis[src] = true;
+
+            for(Edge e : graph[src]){
+                if(!vis[e.v]){
+                    res = res || hasPath(graph, e.v, des, vis);
+                }
+            }
+            return res;
+    }
+
+    public static int allPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis, String psf) {
+        if (src == dest) {
+            System.out.println(psf + dest);
+            return 1;
+        }
+
+        int count = 0;
+        vis[src] = true;
+        for (Edge e : graph[src]) {
+            if (!vis[e.v])
+                count += allPath(graph, e.v, dest, vis, psf + src);
+        }
+
+        vis[src] = false;
+        return count;
+    }
+
+    public static void preOrder(ArrayList<Edge>[] graph, int src, boolean[] vis, int wsf, String psf) {
+        System.out.println(src + " -> " + (psf + src) + "@" + wsf);
+        vis[src] = true;
+        for (Edge e : graph[src]) {
+            if (!vis[e.v])
+                preOrder(graph, e.v, vis, wsf + e.w, psf + src);
+        }
+
+        vis[src] = false;
+    }
+
+    public static void postOrder(ArrayList<Edge>[] graph, int src, boolean[] vis, int wsf, String psf) {
+        vis[src] = true;
+        for (Edge e : graph[src]) {
+            if (!vis[e.v])
+                postOrder(graph, e.v, vis, wsf + e.w, psf + src);
+        }
+
+        System.out.println(src + " -> " + (psf + src) + "@" + wsf);
+        vis[src] = false;
+    }
+
+
+
+
+
     @SuppressWarnings("unchecked")  // FOR REMOVING EROOR MSG 
     public static void constructGraph() {
         int V = 7;
