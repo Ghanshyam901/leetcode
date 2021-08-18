@@ -147,7 +147,47 @@ public class Construct {
         return myAns;
     }
 
+    public static pair lightestPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
+        return new pair();
+    }
 
+    public static class pair2 {
+        int length = 0;
+        String psf = "";
+
+        pair2() {
+
+        }
+
+        pair2(int length, String psf) {
+            this.length = length;
+            this.psf = psf;
+        }
+    }
+
+    public static pair2 longestPath(ArrayList<Edge>[] graph, int src, int dest, boolean[] vis) {
+        return new pair2();
+    }
+
+    public static void hamintonainPathAndCycle(ArrayList<Edge>[] graph, int src, int osrc, int edgeCount, boolean[] vis,
+            String psf, ArrayList<String> ans) {
+        if (edgeCount == graph.length - 1) {
+            psf += src;
+            int idx = findEdge(graph, src, osrc);
+            if (idx != -1)
+                psf += '*';
+
+            ans.add(psf);
+            return;
+        }
+
+        vis[src] = true;
+        for (Edge e : graph[src]) {
+            if (!vis[e.v])
+                hamintonainPathAndCycle(graph, e.v, osrc, edgeCount + 1, vis, psf + src, ans);
+        }
+        vis[src] = false;
+    }
 
 
 
