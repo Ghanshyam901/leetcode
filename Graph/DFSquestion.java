@@ -77,6 +77,36 @@ public class DFSquestion {
         return size+1;
     }
 
+    //463. Island Perimeter
+
+    public int islandPerimeter(int[][] grid) {
+        int [][] dir = {{0,1},{0,-1},{1,0},{-1,0}};
+        int n = grid.length;
+        int m = grid[0].length;
+        
+        int onesCount =0;
+        int nbrsCount =0;
+        
+        for(int i =0; i<n; i++){
+            for(int j =0; j<m; j++){
+                if(grid[i][j] == 1){
+                    onesCount++;
+                    
+                    for(int d =0; d<dir.length; d++){
+                        int r = i+ dir[d][0];
+                        int c = j+dir[d][1];
+                        
+                        if( r >=0 && c >= 0 && r<n && c < m && grid[r][c] == 1){
+                            nbrsCount++;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return 4 * onesCount - nbrsCount;
+    }
+
 
     public static void main(String[] args) {
         
