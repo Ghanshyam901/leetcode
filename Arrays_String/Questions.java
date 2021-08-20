@@ -822,6 +822,34 @@ public int[][] allCellsDistOrder(int rows, int cols, int rCenter, int cCenter) {
         return sb.toString();
     }
 
+    // 152. Maximum Product Subarray
+
+    public int maxProduct(int[] nums){
+        int n = nums.length;
+        int res = nums[0];
+        
+        int prefix = 0;
+        int suffix = 0;
+        
+        for(int i =0; i<n; i++){
+            if(prefix == 0){
+                prefix = 1 * nums[i];
+            }else{
+                prefix = prefix * nums[i];
+            }
+            
+            if(suffix == 0){
+                suffix = 1 * nums[n-1-i];
+            }else{
+                suffix = suffix * nums[n-1-i];
+            }
+            
+            res = Math.max(res,Math.max(prefix,suffix));
+        }
+        return res;
+    }
+
+
 
 
 
