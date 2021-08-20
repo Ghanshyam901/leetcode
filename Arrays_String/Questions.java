@@ -461,7 +461,7 @@ public int maxChunksToSorted(int[] arr) {
              
          }  
            
-           int ans = -1;
+        //    int ans = -1;
            for(int i =0; i<n; i++){
                if(nums[i] != i+1) return i+1;
            }
@@ -848,6 +848,44 @@ public int[][] allCellsDistOrder(int rows, int cols, int rCenter, int cCenter) {
         }
         return res;
     }
+
+    public int maxProduct_(int[] arr) {
+        
+        if(arr.length == 0)
+          return 0;
+   
+      int prod= 1;
+      int oprd = Integer.MIN_VALUE;
+      
+      
+      
+      for(int i = 0; i<arr.length; i++){
+          prod = prod * arr[i];
+          if(prod > oprd){
+              oprd = prod;
+          }
+              if(prod == 0){
+              prod =1;
+          }
+      }
+      
+      prod = 1;
+      for(int j = arr.length-1; j>=0; j--){
+            prod = prod * arr[j];
+          
+          if(prod > oprd){
+              oprd = prod;
+          }
+              if(prod == 0){
+              prod =1;
+          }
+      }
+      
+      return oprd;
+      
+      
+      
+  }
 
 
 
