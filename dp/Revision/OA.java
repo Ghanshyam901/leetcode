@@ -62,6 +62,83 @@ public int maxSumIS(int arr[], int n)
         }
 
 
+		// https://practice.geeksforgeeks.org/problems/longest-bitonic-subsequence0824/1#
+
+		public int LongestBitonicSequence(int[] nums)
+    {
+        int n = nums.length;
+        int [] lis = new int[n];
+        
+        for(int i =0; i<nums.length; i++){
+            int max =0;
+            for(int j =0; j<i; j++){
+                if(nums[j] < nums[i]){
+                    if(max < lis[j])
+                    max = lis[j];
+                }
+            }
+            lis[i] = max+1;
+        }
+        
+        int [] lds = new int[n];
+        
+        for(int i = nums.length-1; i >= 0; i--){
+            int max = 0;
+            for(int j = nums.length-1; j>i; j--){
+                if(nums[j] < nums[i]){
+                    if(max < lds[j]){
+                        max = lds[j];
+                    }
+                    
+                }
+            }
+            lds[i] = max+1;
+        }
+        
+        int omax =0;
+        
+        for(int i =0; i<nums.length; i++){
+            if(lis[i] + lds[i] -1 > omax ){
+                omax = lis[i] + lds[i] -1;
+            }
+        }
+        return omax;
+    }
+
+	// https://leetcode.com/problems/palindromic-substrings/submissions/
+	public int countSubstrings(String s) {
+        
+        
+        boolean [][] dp = new boolean[s.length()][s.length()];
+        int count =0;
+        
+        for(int gap =0; gap <s.length(); gap++){
+            for(int i=0,j = gap; j<dp.length; i++,j++){
+                if(gap == 0){
+                    dp[i][j] = true;
+                }else if(gap == 1){
+                    if(s.charAt(i) == s.charAt(j)){
+                        dp[i][j] = true;
+                    }else{
+                        dp[i][j] = false;
+                    }
+                }else{
+                    if(s.charAt(i) == s.charAt(j) && dp[i+1][j-1] == true){
+                        dp[i][j] = true;
+                    }else{
+                        dp[i][j] = false;
+                    }
+                }
+                
+                if(dp[i][j] == true){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+
     public static void main(String[] args) {
         
     }
