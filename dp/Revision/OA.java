@@ -227,6 +227,25 @@ public int jump(int[] nums) {
     return dp[0];
 }
 
+// 55. Jump Game
+public boolean canJump(int[] nums) {
+    int n = nums.length;
+    boolean [] dp = new boolean[n];
+    
+    dp[n-1] = true;
+    
+    for(int i = n-2; i>=0; i--){
+        int step = nums[i];
+        for(int j =0; j<=step && i+j < n; j++){
+            if(dp[i+j] == true){
+                dp[i] = true;
+                break;
+            }
+        }
+    }
+    return dp[0];
+}
+
     public static void main(String[] args) {
         
     }
