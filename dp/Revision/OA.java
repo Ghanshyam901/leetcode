@@ -246,6 +246,42 @@ public boolean canJump(int[] nums) {
     return dp[0];
 }
 
+
+// https://practice.geeksforgeeks.org/problems/gold-mine-problem2608/1
+
+static int maxGold(int n, int m, int M[][])
+{
+   
+   int max = 0;
+   
+   int dp[][] = new int[n][m];
+   
+   for(int i=0;i<M.length; i++){
+       max = Math.max(max, maxGoldrec(M,i,0,dp));
+   }
+   return max;
+}
+public static int maxGoldrec (int [][] arr, int sr, int sc,int[][] dp){
+    
+    if(sr < 0 || sr >= arr.length){
+        return 0;
+    }
+    if(sc == arr[0].length-1){
+        return arr[sr][sc];
+    }
+    if(dp[sr][sc] !=0){
+        return dp[sr][sc];
+    }
+    
+    int rec1 = maxGoldrec(arr, sr-1,sc+1,dp);
+    int rec2 = maxGoldrec(arr, sr,sc+1,dp);
+    int rec3 = maxGoldrec(arr, sr+1,sc+1,dp);
+    
+    int ans = arr[sr][sc] + Math.max(rec1,Math.max(rec2,rec3));
+    dp[sr][sc] = ans;
+    return ans;
+}
+
     public static void main(String[] args) {
         
     }
