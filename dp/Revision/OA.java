@@ -311,6 +311,32 @@ static Boolean isSubsetSum(int N, int arr[], int sum){
     
 }
 
+// https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1
+
+static int knapSack(int cap, int wt[], int price[], int n) 
+    { 
+         // your code here 
+         int [][] dp = new int[wt.length][cap+1];
+         
+         for(int col =0; col<=cap; col++){
+             if(col >= wt[0]){
+                 dp[0][col] = price[0];
+             }
+         }
+         
+         for(int i =1; i<dp.length; i++){
+             for(int j = 1; j <dp[0].length; j++){
+                 int cwt = wt[i];
+                 dp[i][j] = dp[i-1][j];
+                 if(j - cwt >= 0){
+                     dp[i][j] = Math.max(dp[i][j],price[i]+dp[i-1][j-cwt]);
+                 }
+             }
+         }
+         return dp[dp.length-1][dp[0].length-1];
+         
+    } 
+
     public static void main(String[] args) {
         
     }
