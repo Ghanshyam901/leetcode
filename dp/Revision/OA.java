@@ -337,6 +337,26 @@ static int knapSack(int cap, int wt[], int price[], int n)
          
     } 
 
+    // https://practice.geeksforgeeks.org/problems/stickler-theif-1587115621/1#
+
+    public int FindMaxSum(int arr[], int n)
+    {
+        // Your code here
+        int [] exc = new int[n];
+        int [] inc = new int[n];
+        
+        inc[0] = arr[0];
+        exc[0] = 0;
+        
+        for(int i = 1; i<n; i++){
+            inc[i] = arr[i] + exc[i-1];
+            exc[i] = Math.max(exc[i-1],inc[i-1]);
+        }
+        
+        return Math.max(inc[n-1],exc[n-1]);
+        
+    }
+
     public static void main(String[] args) {
         
     }
