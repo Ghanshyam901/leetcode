@@ -282,6 +282,35 @@ public static int maxGoldrec (int [][] arr, int sr, int sc,int[][] dp){
     return ans;
 }
 
+// https://practice.geeksforgeeks.org/problems/subset-sum-problem-1611555638/1/?category[]=Dynamic%20Programming&category[]=Dynamic%20Programming&page=4&query=category[]Dynamic%20Programmingpage4category[]Dynamic%20Programming#
+static Boolean isSubsetSum(int N, int arr[], int sum){
+    // code here
+    boolean[][] dp = new boolean[arr.length][sum+1];
+    
+    for(int row = 0; row<dp.length; row++){
+        dp[row][0] = true;
+    }        
+    
+    if(arr[0] <= sum){
+        dp[0][arr[0]] = true;
+    }
+    
+    for(int i=1; i<dp.length; i++){
+        for(int j=1; j<dp[0].length; j++){
+            int val = arr[i];
+            
+            dp[i][j] = dp[i-1][j];
+            
+            if(j-val >= 0 && dp[i][j] == false){
+                dp[i][j] = dp[i-1][j-val];
+                
+            }
+        }
+    }
+    return dp[dp.length-1][dp[0].length-1];
+    
+}
+
     public static void main(String[] args) {
         
     }
