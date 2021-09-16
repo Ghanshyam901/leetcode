@@ -12,7 +12,25 @@ class Bit{
         }
         return count;
     }
+// Josephus Special
 
+    public static int powerof2(int n){
+        int i =1;
+        while(i * 2 <= n)
+        {
+            i = i*2;
+            
+        }
+        return i;
+    }
+    public static int solution(int n){
+    //write your code here
+    
+    int power2 = powerof2(n);
+    int l = n-power2;
+    return 2*l+1;
+    
+    }
 
     public static void main(String[] args) {
         
