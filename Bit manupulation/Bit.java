@@ -1,3 +1,8 @@
+
+import java.util.List;
+import java.util.ArrayList;
+
+
 class Bit{
 
     // 191. Number of 1 Bits
@@ -30,6 +35,26 @@ class Bit{
     int l = n-power2;
     return 2*l+1;
     
+    }
+
+    // 89. Gray Code
+
+    public List<Integer> grayCode(int n) {
+        
+        if(n ==1){
+            List<Integer> ans = new ArrayList<>();
+            ans.add(0);
+            ans.add(1);
+            
+            return ans;
+        }
+        
+        List<Integer> temp = grayCode(n - 1);
+        int x = 1 << (n-1);
+        for (int i = temp.size() - 1; i >= 0; i--) {
+            temp.add(temp.get(i) + x);
+        }
+        return temp;
     }
 
     public static void main(String[] args) {
