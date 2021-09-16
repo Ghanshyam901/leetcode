@@ -1,6 +1,8 @@
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.HashMap;
 
 
 class Bit{
@@ -55,6 +57,56 @@ class Bit{
             temp.add(temp.get(i) + x);
         }
         return temp;
+    }
+
+    // 1178. Number of Valid Words for Each Puzzle
+    // TLE for 1 input
+
+    public List<Integer> findNumOfValidWords(String[] words, String[] puzzles) {
+        
+        HashMap<Character,ArrayList<Integer>> map = new HashMap<>();
+        for(int i =0; i<26; i++){
+            map.put((char)('a'+i),new ArrayList<>());
+            
+        }
+        
+        for(String word : words){
+            int mask =0;
+            for(char ch :word.toCharArray()){
+                int bit = ch -'a';
+                mask = mask | ((1 << bit));
+                
+            }
+            HashSet<Character> uniqueSet = new HashSet<>();
+            for(char ch : word.toCharArray()){
+                if(uniqueSet.contains(ch)){
+                    continue;
+                }
+                uniqueSet.add(ch);
+                map.get(ch).add(mask);
+            }
+        }
+        
+        List<Integer> res = new ArrayList<>();
+        
+        for(String puzzle : puzzles){
+            int pmask =0;
+            for(char ch : puzzle.toCharArray()){
+                int bit = ch -'a';
+                pmask = pmask | ((1 << bit)); 
+            }
+            char fch = puzzle.charAt(0);
+            ArrayList<Integer> wordTocheck =map.get(fch);
+            int count = 0;
+            
+            for(int wmask : wordTocheck){
+                if((wmask &pmask) == wmask){
+                    count++;
+                }
+            }
+            res.add(count);
+        }
+        return res;
     }
 
     public static void main(String[] args) {
