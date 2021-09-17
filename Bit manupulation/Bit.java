@@ -231,6 +231,17 @@ class Bit{
             }
             return tCount;
         }
+
+        // /371. Sum of Two Integers
+        public int getSum(int a, int b) {
+        
+            while(b !=0){
+                int x = a & b;
+                a = a^b;
+                b = x<<1;
+            }
+                return a;
+        }
     
 
     public static void main(String[] args) {
