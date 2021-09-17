@@ -109,6 +109,130 @@ class Bit{
         return res;
     }
 
+    // 136. Single Number
+
+    public int singleNumber(int[] nums) {
+        int uni = 0;
+        for(int num : nums){
+            uni = uni ^ num;
+        }
+        return uni;
+    }
+
+
+    // 260. Single Number III
+        public int[] singleNumber_(int[] nums) {
+            int xory =0;
+            for(int num : nums){
+                xory = xory ^ num;
+            }
+            
+            int rmsb = xory &(~xory +1); // right mist set bit
+            int a =0;
+            int b= 0;
+            
+            for(int num : nums){
+                if((num & rmsb) == 0){
+                    a = a^num; 
+                }else{
+                    b = b^num;
+                }
+            }
+            
+            return new int[]{a,b};
+        }
+
+        // 268. Missing Number
+
+        public int missingNumber(int[] nums) {
+            int xor =0;
+            for(int i =0; i<nums.length; i++){
+                xor = xor ^ nums[i];
+            }
+            
+            for(int i=1; i<=nums.length; i++){
+                xor = xor ^i;
+            }
+            
+            int rmsb = xor & (~xor+1);
+            
+            int x= 0;
+            int y =0;
+            
+            for(int num : nums){
+                if((num & rmsb) == 0){
+                    x = x^num;
+                }else{
+                    y = y ^ num;
+                }
+            }
+            
+            for(int i =1; i<=nums.length; i++){
+                if((i & rmsb) == 0){
+                    x = x^i;
+                }else{
+                    y = y ^ i;
+                }
+            }
+            int missing = 0;
+            for(int num : nums){
+                if(num == x){
+                  missing = y;
+                }else if(num == y){
+                     missing = x;
+                }
+            }
+            return missing;
+        }
+
+        // 137. Single Number II
+        // note ->  -ve test cases failed
+
+        public int singleNumber1(int[] nums) {
+        
+            int tn = Integer.MAX_VALUE;
+            int tnp1 =0;
+            int tnp2 =0;
+        
+    //         cw = common with 
+            for(int i =0; i<nums.length; i++){
+                int cwtn = nums[i] & tn;
+                int cwtn1 = nums[i] & tnp1;
+                int cwtn2 = nums[i] & tnp2;
+                
+                tn = tn & (~cwtn);
+                tnp1 = tnp1 | cwtn;
+                
+                tnp1 = tnp1 &(~cwtn1);
+                tnp2 = tnp2 | cwtn1;
+                
+                tnp2 = tnp2 &(~cwtn2);
+                tn = tn | cwtn2;
+            }
+            return tnp1 ;
+        }
+
+        // 1442. Count Triplets That Can Form Two Arrays of Equal XOR
+
+        public int countTriplets(int[] arr) {
+       
+            int tCount =0;
+          
+            for(int i =0; i<arr.length; i++){
+                
+                int val = arr[i];
+              
+                for(int k = i+1; k<arr.length; k++){
+                    val = val ^ arr[k];
+                    if(val == 0){
+                        tCount +=(k-i);
+                    }
+                }
+            }
+            return tCount;
+        }
+    
+
     public static void main(String[] args) {
         
     }
