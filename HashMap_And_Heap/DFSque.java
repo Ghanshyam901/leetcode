@@ -106,6 +106,53 @@ public int islandPerimeter(int[][] grid) {
     }
     return 4 * oneCount-nbrCount;
 }
+
+    //// 130
+
+    public void solve(char[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        
+        int [][] dir = {{1,0},{-1,0},{0,1},{0,-1}};
+        
+        for(int i=0; i<n; i++){
+            for(int j =0; j<m; j++){
+                if(i == 0 || j == 0 || n-1 == i || m-1 == j ){
+                    if(grid[i][j] == 'O'){
+                        DFS_surrounded(grid,i,j,dir);
+                    }
+                }
+            }
+        }
+        
+        for(int i =0; i<n; i++){
+            for(int j =0; j<m; j++){
+                if(grid[i][j] == '#'){
+                    grid[i][j] = 'O';
+                }else if(grid[i][j] == 'O'){
+                    grid[i][j] = 'X';
+                }
+            }
+        }
+        
+    }
+    
+    public void DFS_surrounded(char [][] grid, int i, int j, int [][] dir){
+        grid[i][j] = '#';
+        
+        int n = grid.length;
+        int m = grid[0].length;
+        
+        for(int d=0; d<dir.length; d++){
+            int r = i + dir[d][0];
+            int c = j + dir[d][1];
+            
+            if(r >=0 && c>= 0 && r < n && c < m && grid[r][c] == 'O' ){
+                DFS_surrounded(grid,r,c,dir);
+            }
+        }
+        
+    }
     public static void main(String[] args) {
         
     }
