@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class Construct {
@@ -187,6 +188,87 @@ public class Construct {
                 hamintonainPathAndCycle(graph, e.v, osrc, edgeCount + 1, vis, psf + src, ans);
         }
         vis[src] = false;
+    }
+
+
+    public static void dfs_compo(ArrayList<Edge>[] graph, int src, boolean[] vis) {
+        vis[src] = true;
+        for (Edge e : graph[src])
+            if (!vis[e.v])
+                dfs_compo(graph, e.v, vis);
+    }
+
+    public static void gcc(ArrayList<Edge>[] graph) {
+        int N = graph.length;
+        boolean[] vis = new boolean[N];
+
+        int components = 0;
+        for (int i = 0; i < N; i++) {
+            if (!vis[i]) {
+                components++;
+                dfs_compo(graph, i, vis);
+            }
+        }
+
+    }
+
+    // BFS.=======================================================================
+
+    public static void bfs(ArrayList<Edge>[] graph, int src, boolean[] vis) {
+        LinkedList<Integer> que = new LinkedList<>();
+        que.add(src);
+
+        int level = 0;
+        while (que.size() != 0) {
+            int size = que.size();
+            System.out.print("Level: " + level + " ->");
+
+            while (size-- > 0) {
+                int vtx = que.removeFirst();
+                if (vis[vtx]) {
+                    System.out.println("cycle");
+                    continue;
+                }
+
+                System.out.print(vtx + ", ");
+
+                vis[vtx] = true;
+                for (Edge e : graph[vtx]) {
+                    if (!vis[e.v])
+                        que.addLast(e.v);
+                }
+            }
+
+            level++;
+            System.out.println();
+        }
+    }
+
+    public static void bfs_withouCycle(ArrayList<Edge>[] graph, int src, boolean[] vis) {
+        LinkedList<Integer> que = new LinkedList<>();
+        que.add(src);
+        vis[src] = true;
+
+        int level = 0;
+        while (que.size() != 0) {
+            int size = que.size();
+            System.out.print("Level: " + level + " ->");
+
+            while (size-- > 0) {
+                int vtx = que.removeFirst();
+                System.out.print(vtx + ", ");
+
+                for (Edge e : graph[vtx]) {
+                    if (!vis[e.v]) {
+                        vis[e.v] = true;
+                        que.addLast(e.v);
+                    }
+                }
+            }
+
+            level++;
+            System.out.println();
+        }
     }
 
 
